@@ -1,0 +1,14 @@
+&inp
+seed = 13588
+temp = 0.20
+dataxyz = 'lj.xyz'
+dt = 0.01 
+nstep = 20000000
+langevinWNtau = 0
+gleafile = 'gle-A.dat'
+mstep = 1
+andersentau = 0
+stridetrj = 5000
+stridelog = 10
+outputf = 'outCNL.xyz'
+&end

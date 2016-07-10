@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+import argparse
+
+## PARSER
+parser = argparse.ArgumentParser(description=" Create a close-packed lattice.") 
+parser.add_argument("-n", "--nreplicas", help="Number of unit cell replicas per each directions (default: 3)")
+parser.add_argument("-a", "--uvector", type=int, help="Side of the unitary cell (default: a=1.5)")
+parser.add_argument("-t", "--type", type=int, help="Atom type (default: Ar)")
+args = parser.parse_args()
+
+# Check input parameters
+if args.nreplicas :
+    n = args.nreplicas
+else :
+    n=3
+
+if args.uvector :
+    a = args.uvector
+else :
+    a=1.5
+
+if args.type :
+    a = args.type
+else :
+    tp="Ar"
+## END PARSER
+
+
+# total number of atoms
+natoms=4*(n**3)
+print(natoms)
+
+# box dimensions
+lbox=a*n
+print("# Cell(ABC) %d %d %d" % (lbox,lbox,lbox))
+
+# create the lattice
+for i in range(0,n):
+    for j in range(0,n):
+        for k in range(0,n):
+            print("%s %.4f %.4f %.4f " % (tp,i*a,j*a,k*a))
+            print("%s %.4f %.4f %.4f " % (tp,(i+0.5)*a,j*a,(k+0.5)*a))
+            print("%s %.4f %.4f %.4f " % (tp,(i+0.5)*a,(j+0.5)*a,k*a))
+            print("%s %.4f %.4f %.4f " % (tp,i*a,(j+0.5)*a,(k+0.5)*a))
+
+

@@ -1,0 +1,15 @@
+Some tips about linux and awk
+
+1. Compute the arithmetic mean in the third column of a file: 
+
+(should probably initialize doing awk 'BEGIN{sum=0}{sum+=$3} ...}')
+
+awk '{sum+=$3} END { print "Average = ",sum/NR}' file
+
+2. Compute the variance 
+
+awk '{sum=$3 ; sum2=$3*$3} END {print "Variance = ",(sum*sum-sum2)/NR}' file ; 
+
+3. Find max and min
+
+awk 'BEGIN{max=-10E10;min=10E10}{if($3>max){max=$3};if($3<min){min=$3}}END{print "Max = ",max ; print "Min = ",min}' file

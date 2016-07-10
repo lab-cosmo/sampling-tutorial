@@ -1,0 +1,23 @@
+&inp
+seed = 12345
+temp = 0.168
+dataxyz = 'lj38.xyz'
+dt = 0.01
+nstep = 100000000
+langevinWNtau =  10
+mstep = 100 
+r0=1.5
+r1=1.25
+sig=0.5
+stridetrj =   20000
+stridelog =    2000
+stridecv = 200
+outputf = 'out.xyz'
+outcvf = 'out.cv'
+outallf = 'out.all'
+clist(1)=6.0
+clist(2)=8.0
+sela(1)=18.0d0
+sela(2)=25.5d0
+seloutf = 'min.xyz'
+&end

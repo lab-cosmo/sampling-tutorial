@@ -1,0 +1,13 @@
+&inp
+seed = 1357
+temp = 0.20
+dataxyz = 'ljnew.xyz'
+dt = 0.01
+nstep = 20000000
+! try 0.01 0.1 1 10 100
+langevinWNtau = 1
+mstep = 10
+stridetrj = 10000
+stridelog = 10
+outputf = 'out.xyz'
+&end

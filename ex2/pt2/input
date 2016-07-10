@@ -1,0 +1,14 @@
+&inp
+seed = 1357
+temp = 0.20
+dataxyz = 'lj-oct-0k.xyz'
+dt = 0.001
+nstep = 20000
+langevinWNtau = 1 
+gleafile = 'NULL'
+mstep = 1
+andersentau = 0 
+stridetrj = 50000
+stridelog = 1
+outputf = 'out.xyz'
+&end

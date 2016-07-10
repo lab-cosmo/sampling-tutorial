@@ -1,0 +1,11 @@
+&inp
+seed = 1357
+temp = 0.23
+dataxyz = 'lj-023.xyz'
+nstep = 90000000
+stridetrj = 500000
+stridelog = 100
+! try different values for mcstep, for instance 0.005, 0.01, 0.05, 0.1, 0.5, 1.0
+mcstep = 0.05
+outputf = 'out-05.xyz'
+&end

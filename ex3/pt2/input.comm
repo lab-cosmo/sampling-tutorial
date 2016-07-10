@@ -1,0 +1,16 @@
+&inp
+seed = 55416
+temp = 0.168
+dataxyz = 'ts.xyz'
+dt = 0.01
+nstep = 200
+nshoot= 200
+r0=1.5
+r1=1.25
+sig=0.5
+cvoutf = 'out.finalcv'
+clist(1)=6
+clist(2)=8
+sela(1)=18.5d0
+sela(2)=25.0d0
+&end

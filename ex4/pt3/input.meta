@@ -1,0 +1,29 @@
+&inp
+seed = 56789
+temp = 0.168
+dataxyz = 'lj38.xyz'
+dt = 0.01
+nstep = 100000000
+langevinWNtau = 5
+mstep = 100 
+r0=1.5
+r1=1.25
+sig=0.5
+wmeta=0.2
+wttemp=0.5
+sigmeta=0.5
+stridemeta = 10000
+stridetrj =  20000
+stridelog =   2000
+stridecv = 200
+outputf = 'out.xyz'
+outcvf = 'out.cv'
+outhillsf = 'out.hills'
+clist(1)=6
+clist(2)=8
+sela(1)=15d0
+sela(2)=18d0
+selb(1)=0d0
+selb(2)=5d0
+seloutf = 'ts.xyz'
+&end	
