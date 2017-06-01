@@ -1,6 +1,6 @@
 %% LyX 2.0.8.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-\documentclass[american,english]{report}
+\documentclass[english]{report}
 \usepackage{lmodern}
 \renewcommand{\sfdefault}{lmss}
 \renewcommand{\ttdefault}{lmtt}
@@ -29,10 +29,27 @@
 \usepackage{microtype}
 \usepackage{listings}
 \usepackage[compact]{titlesec}  
+\makeatletter
+\@ifpackagelater{titlesec}{2016/03/21}{%
+ % Package titlesec is on version 2.10.2 or higher, nothing to do %
+}{%
+ % Check if package titlesec is on version 2.10.1 %
+ \@ifpackagelater{titlesec}{2016/03/15}{%
+  % Package titlesec on version 2.10.1, patch accordingly %
+  \usepackage{etoolbox}%
+  \makeatletter
+  \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}%
+  \patchcmd{\ttlh@hang}{\noindent}{}{}{}%
+  \makeatother
+ }{%
+  % Package titlsecon is on version 2.10.0 or lower, nothing to do %
+ }%
+}
+\makeatother
 \titlespacing{\section}{0pt}{5pt}{0pt}
 \titlespacing{\subsection}{0pt}{3pt}{0pt}
 \titlespacing{\subsubsection}{0pt}{2pt}{0pt}
-%\titleclass{\chapter}{straight}
+\titleclass{\chapter}{straight}
 \titleformat{\chapter}[hang] {\LARGE\bf}{\LARGE\thechapter}{1ex}{}[]
 \titlespacing{\chapter}{0pt}{10pt}{5pt}
 
@@ -98,8 +115,7 @@ second lowest energy minimum is an incomplete Mackay icosahedron (Fig.
 
 \begin{center}
 \begin{figure}[H]
-\caption{\selectlanguage{american}%
-\label{fig:minimalj38}\foreignlanguage{english}{(a) The LJ$_{38}$
+\caption{\label{fig:minimalj38}\foreignlanguage{english}{(a) The LJ$_{38}$
 global minimum, an fcc truncated octahedron. (b) and (c) Second lowest
 energy minimum of LJ$_{38}$. Figure adapted from \cite{doye_double-funnel_1999}.}\selectlanguage{english}%
 }
@@ -127,8 +143,7 @@ techniques in atomistic simulations.
 
 \begin{center}
 \begin{figure}[H]
-\caption{\selectlanguage{american}%
-\label{fig:lj38michele}\foreignlanguage{english}{A number of representative
+\caption{\label{fig:lj38michele}\foreignlanguage{english}{A number of representative
 configurations of the LJ$_{38}$ cluster are projected together with
 the free energy surface computed at 0.18$T^{*}$. Figure adapted from
 \cite{ceriotti_demonstrating_2013}}\selectlanguage{english}%
@@ -199,6 +214,7 @@ In order to use it, you'll have to install it from its webpage  \\
 
  \texttt{http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD}\\
 
+\newpage
 
 \chapter{Monte Carlo}
 
@@ -1230,8 +1246,7 @@ $ awk '{print $1, $2}' out.proj | ndhistogram -d 2 -g -xi -15,-15
 
 \begin{center}
 \begin{figure}[H]
-\caption{\selectlanguage{american}%
-\label{fig:smap-tst}\foreignlanguage{english}{Sketch-map projection
+\caption{\label{fig:smap-tst}\foreignlanguage{english}{Sketch-map projection
 of the transition-state configurations obtained in~\ref{sec:2d-committor},
 overlaid on the free energy surface and colored according to the value
 of the committor. }\selectlanguage{english}%
@@ -1288,7 +1303,7 @@ and then project the whole trajectory from \texttt{out.all} onto this
 partial map. Can you still recognize the most important features of
 the energy landscape?
 
-\bibliographystyle{ChemEurJ}
+\bibliographystyle{unsrt}
 \bibliography{biblio}
 
 \end{document}
