@@ -1183,7 +1183,7 @@ You may want to plot it superimposed with the histogram of pairwise
 distances to get a feeling of how different sets of distances are
 transformed by the function:\begin{lstlisting}[language=matlabfloz]
 gnuplot> f(r,s,a,b)=1-(1.0+(2**(a*1.0/b)-1)*(r/s)**a)**-(b*1.0/a)
-gnuplot> p 'j38.histo' u 1:($2*10) w l, f(x,5,8,1)
+gnuplot> p 'lj38.histo' u 1:($2*10) w l, f(x,5,8,1)
 \end{lstlisting}
 
 
