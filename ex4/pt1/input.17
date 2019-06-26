@@ -1,0 +1,22 @@
+&inp
+seed = 56789
+temp = 0.17
+dataxyz = 'lj38.17.xyz'
+dt = 0.01
+nstep = 100000000
+langevinWNtau = 10
+mstep = 100 
+r0=1.5
+r1=1.25
+sig=0.5
+wmeta=0.1
+sigmeta=0.25
+stridemeta = 0
+stridetrj =  20000
+stridelog =   2000
+stridecv = 200
+outputf = 'out.17.xyz'
+outcvf = 'out.17.cv'
+clist(1)=6
+clist(2)=8
+&end	
