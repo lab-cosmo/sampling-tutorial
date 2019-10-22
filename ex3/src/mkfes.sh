@@ -5,7 +5,7 @@ if [ $# -gt 0 ]; then kt=$1; fi
 
 awk '!/#/{print $2}' out.cv | histogram -xi 0 -xf 25 -whard -n 150 -t 0.1 \
     | awk -v kt=$kt 'BEGIN{print "# n6   F(n6)" } !/#/{ if (NF==0) print ""; else printf "%15.7e %15.7e\n", $1, -kt*log($2) } ' >  n6.fes
-awk '!/#/{print $4}' out.cv | histogram -xi 0 -xf 15 -whard -n 150 -t 0.1 \
+awk '!/#/{print $4}' out.cv | histogram -xi 0 -xf 15 -whard -n 250 -t 0.1 \
     | awk -v kt=$kt 'BEGIN{print "# n8   F(n8)" } !/#/{ if (NF==0) print ""; else printf "%15.7e %15.7e\n", $1, -kt*log($2) } ' >  n8.fes
 awk '!/#/{print $2,$3}' out.cv | histogram -xi 0 -xf 25 -whard -n 250 -t 0.1 -avg > n6.phi
 awk '!/#/{print $4,$5}' out.cv | histogram -xi 0 -xf 15 -whard -n 150 -t 0.1 -avg > n8.phi
