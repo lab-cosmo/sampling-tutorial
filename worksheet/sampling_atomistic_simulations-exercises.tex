@@ -188,7 +188,7 @@ output -- for instance to compute histograms and autocorrelation functions.
 These should be downloaded from their \texttt{git} repositories, and
 then compiled:
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ git clone https://github.com/cosmo-epfl/toolbox.git
 $ cd toolbox/src
 $ make
@@ -198,7 +198,7 @@ and to install lapack and fftw3 to have access to all the features
 of this set of utilities. On a Debian/Ubuntu system, you should be
 able to do so by running 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ cp make.example.in make.in
 $ sudo apt-get install libfftw3-dev liblapack-dev
 \end{lstlisting}
@@ -218,7 +218,9 @@ In order to use it, you'll have to install it from its webpage  \\
 
 \chapter{Monte Carlo}
 
-\lstset{language=bash} 
+\lstset{language=bash,
+  literate = {-}{-}1
+} 
 
 This exercise is meant to be a simple introduction to Metropolis Monte
 Carlo (MC), and a way to get familiar with the LJ$_{38}$ system and
@@ -242,7 +244,7 @@ the i/o routines, ...\tabularnewline
 
 First, try to familiarize yourself with the source, which is heavily
 commented and should allow you to easily follow the algorithms. Compilation
-is straightforward:\begin{lstlisting}[language=matlabfloz]
+is straightforward:\begin{lstlisting}
 $ pwd
 ~/exercises/ex1
 $ cd src
@@ -281,14 +283,14 @@ is the \emph{fcc} truncated octahedron relaxed to $0\, T^{*}$.
 
 Launch the program with the following command:
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ ../src/mcnvt input > log &
 \end{lstlisting}This will output the statistics in the file \texttt{log }and will
 run the calculation in background so you can monitor the equilibration
 of the system using \texttt{gnuplot}. For instance, to plot the potential
 energy as a function of the number of MC steps:
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ gnuplot
  gnuplot> p 'log' u 1:2 w l 
 (alternatively: gnuplot> plot 'log' using 1:2 with line)
@@ -297,7 +299,7 @@ $ gnuplot
 \begin{itemize}
 \item Observe how the potential energy converges to the equilibrium value
 \item Look at the trajectory file using 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ vmd out-023.xyz
 \end{lstlisting}
 and experiment with the visualization options of \texttt{vmd} (particularly in the menu graphics -> representations). 
@@ -312,7 +314,7 @@ time.
 \begin{itemize}
 \item use the \texttt{autocorr} tool to compute the autocorrelation function
 from one of the logs
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ tail -n +10000 log | awk '!/#/{print $2}' 
 | autocorr -maxlag 10000 -timestep 100 > acf
 \end{lstlisting}
@@ -329,7 +331,7 @@ that corresponds to the potential energy.
 The header contains the average and standard deviation of the data
 set, the autocorrelation time and an estimate of the error in the
 mean obtained from the variance of the data, the autocorrelation time
-and the the length of the trajectory.\begin{lstlisting}[language=matlabfloz]
+and the the length of the trajectory.\begin{lstlisting}
 $ head acf 
 ...
 #  computed with time unit:    1.0000000e+02     # 
@@ -368,7 +370,7 @@ Start with the examples provided. Make sure that the simulation is
 long enough to converge the autocorrelation function, and that the
 maximum lag is not much longer than the autocorrelation time itself.
 Also, keep track of the acceptance ratio, which is printed out at
-the end of each run as a comment in the log file: \begin{lstlisting}[language=matlabfloz]
+the end of each run as a comment in the log file: \begin{lstlisting}
 $ tail -n 6 log-0.05
 ##  
 ## Total moves:        50000  
@@ -383,7 +385,7 @@ to generate a plot and store it in an image that you can use when
 you write your report. To export graphs produced by \texttt{gnuplot,
 }you can just specify a terminal, which also determines the format
 of output file. \texttt{gnuplot} supports terminals for various formats
-including png, jpg, gif and postscript. For instance, \begin{lstlisting}[language=matlabfloz]
+including png, jpg, gif and postscript. For instance, \begin{lstlisting}
 gnuplot> set terminal png size 400,300 enhanced font "Sans,20"
 gnuplot> set output "mcstep.png"
 \end{lstlisting}In this example we used the png output format, but you can either
@@ -510,10 +512,10 @@ structure, and try to melt it as we did with Monte Carlo. Use the
 example file\texttt{ }called \texttt{input} in the directory \texttt{pt1/}
 .
 
-To run the program:\begin{lstlisting}[language=matlabfloz]
+To run the program:\begin{lstlisting}
 $ ../src/mdcode input > log &
 \end{lstlisting}Before starting the exercise take a brief look at the \texttt{log}
-file:\begin{lstlisting}[language=matlabfloz]
+file:\begin{lstlisting}
 $ head log
 ## MD code.   
 ## Natoms:           38  
@@ -527,7 +529,7 @@ $ head log
 \end{lstlisting}
 \begin{itemize}
 \item Use \texttt{gnuplot} to monitor the potential, kinetic and total energies:
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 gnuplot> p 'log' u 1:3 w l
 gnuplot> p 'log' u 1:4 w l, 'log' u 1:5 w l
 \end{lstlisting}
@@ -551,7 +553,7 @@ the MD plot with the MC one?
 \item Compute the average temperature and the average configurational energy.
 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ tail -n +5000 log | awk '!/#/{t+=$2;pot+=$4; n++} 
  END{print"T=",t/n;print"Epot=",pot/n}'
 \end{lstlisting}
@@ -582,12 +584,12 @@ step further.
 from the previous trajectory:
 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ tail -n 40 out.xyz > ljnew.xyz &
 \end{lstlisting}
 
 
-Remember to change the input file setting \texttt{dataxyz = 'ljnew.xyz'.}\begin{lstlisting}[language=matlabfloz]
+Remember to change the input file setting \texttt{dataxyz = 'ljnew.xyz'.}\begin{lstlisting}
 $ sed "s/lj-oct-ok/ljnew/" input > input.new &
 \end{lstlisting}
 \begin{itemize}
@@ -635,7 +637,7 @@ N.B.: Start using configuration extracted from a previously equilibrated
 run at \texttt{$T^{*}=0.20$}. Use the following command: 
 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ tail -n 40 out.xyz > lj.xyz &
 \end{lstlisting}
 
@@ -773,7 +775,7 @@ In the first part of this exercise we will run a constant-temperature
 simulation, compute free energies relative to different collective
 coordinates and verify that they can distinguish between different
 meta-stable structures. Example input files are given in \texttt{pt1/},
-and can be run with \begin{lstlisting}[language=matlabfloz]
+and can be run with \begin{lstlisting}
 $ ../src/mdcode input > log &
 \end{lstlisting}
 
@@ -798,7 +800,7 @@ of $n_{6}$ and $n_{8}$ and the average flux factors
 A script is provided that computes all of these quantities using \texttt{(nd)histogram}
 at once (assuming that the file names have not been changed!):
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ ../src/mkfes.sh 0.168 &
 \end{lstlisting}
 \begin{itemize}
@@ -816,7 +818,7 @@ cluster.
 clarifies what is going wrong. However, we will keep using just $n_{6}$
 for a while...
 \end{itemize}
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 gnuplot> set pm3d map; sp 'n6n8.fes' w pm3d 
 \end{lstlisting}
 \begin{itemize}
@@ -863,7 +865,7 @@ input files are given in \texttt{pt2/}.
 \item Start a (long) trajectory using the \texttt{input.md} file. The \texttt{sela}
 parameters should pick a region in the vicinity of the maximum of
 the free energy relative to $n_{6}$. This should be something around
-$n_{6}=18$.\begin{lstlisting}[language=matlabfloz]
+$n_{6}=18$.\begin{lstlisting}
 $ ../src/mdcode input.md > log.md &
 \end{lstlisting}
 \item The simulation will print out configurations that fulfill these constraints,
@@ -874,16 +876,16 @@ the cluster. Inspect the file with \texttt{vmd}.
 \item When enough snapshots have been accumulated (it might take a long
 time before the MD simulation is over, so you may want to start playing
 around before the run is finished. Make sure not to overwrite files
-while the MD is still running!) you can run the actual committor analysis.\begin{lstlisting}[language=matlabfloz]
+while the MD is still running!) you can run the actual committor analysis.\begin{lstlisting}
 $ ../src/mdcommit input.comm > log.comm &
 \end{lstlisting}It will take some time before there is any output in the file -- this
 is because the output is buffered, and so lines will appear only when
 the buffer is flushed. 
 \item Look at the position of the initial configurations and the value of
-the committor. This can be done with gnuplot using\begin{lstlisting}[language=matlabfloz]
+the committor. This can be done with gnuplot using\begin{lstlisting}
 gnuplot> p 'log.comm' u 5:7:2 w p pt 7 lt pal
 \end{lstlisting}
-\item Compute the histogram of committors for the transition state ensemble\begin{lstlisting}[language=matlabfloz]
+\item Compute the histogram of committors for the transition state ensemble\begin{lstlisting}
 $ awk '!/#/{print $2}' log.comm 
 | histogram -xi 0 -xf 1 -n 100 -t 0.1 -whard > histo.comm
 \end{lstlisting}Is this a good collective variable?
@@ -916,14 +918,14 @@ to weight observables by the ratio of the target probability distribution
 and the distribution that was sampled during the simulation. The code
 for this exercise has been modified to output the energy and bias
 together with the values of collective variables, i.e. the file specified
-in \texttt{outputcv} contains\begin{lstlisting}[language=matlabfloz]
+in \texttt{outputcv} contains\begin{lstlisting}
 Step.Index   Na    PhiA   Nb    PhiB     V     Bias
 \end{lstlisting}
 Note that Metadynamics (4.2) and Well-tempered metadynamics (4.3) would need one hour to run so you might want to launch them in advance.
 
 \section{Temperature reweighing}
 
-Perform two runs at $T^{\star}=0.17$ and $T^{\star}=0.19$. \begin{lstlisting}[language=matlabfloz]
+Perform two runs at $T^{\star}=0.17$ and $T^{\star}=0.19$. \begin{lstlisting}
 $ ../src/mdcode input.17 > log.17 &
 $ ../src/mdcode input.19 > log.19 &
 \end{lstlisting}
@@ -934,7 +936,7 @@ those of the actual run. You can use the script given in the \texttt{src/}
 directory, but make sure to understand what it is doing.
 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ ../src/mkrwavg.sh 0.17 < log.17 > vavg.17
 $ ../src/mkrwavg.sh 0.19 < log.19 > vavg.19
 $ ../src/mkrwavg.sh 0.17 0.19 < log.17 > vavg.17to19
@@ -954,7 +956,7 @@ decently.
 \item Use another script to compute reweighed free energies
 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ ../src/mkrwfes.sh 0.17 < out.17.cv > n6.17
 $ ../src/mkrwfes.sh 0.19 < out.19.cv > n6.19
 $ ../src/mkrwfes.sh 0.17 0.19 < out.17.cv > n6.17to19
@@ -990,7 +992,7 @@ pt2/}. Visualize the position of the hills and the bias as the simulations
 goes on. 
 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ ../src/mdcode input.meta > log.meta &
 ...
 gnuplot> p 'out.hills' u 2:3:6 w p pt 7 ps 2 lt pal
@@ -1005,7 +1007,7 @@ nh} option allows you to plot the bias including only the first \texttt{nh}
 hills.
 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ awk '{print $2,$3,$4,$5}' out.hills | head -n 1000 | 
 ../src/sumhills   -nci 0,0 -ncf 25,16  -b 0.1,0.1 > bias.splot
 ...
@@ -1037,7 +1039,7 @@ the weight of different parts of the trajectory -- an advanced technique
 that we will not discuss here.
 
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ ../src/mkrwavg.sh 0.168 < log.meta > vavg.rw
 $ ../src/mkrwfes.sh 0.168 < out.cv > n6.rwfes
 \end{lstlisting} 
@@ -1087,7 +1089,7 @@ F\left(\mathbf{s}\right)=-B\left(\mathbf{s}\right)\frac{T+\Delta T}{\Delta T}+C.
 You can apply this scaling directly from \texttt{gnuplot}, e.g. 
 \end{itemize}
 
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 gnuplot> sp 'bias.splot' u 1:2:(-$3*(1+0.168/0.5)) w pm3d
 \end{lstlisting}
 
@@ -1129,10 +1131,10 @@ grows quickly with the number of reference points, so it is important
 to select a sub-set of the data from which one wants to build the
 map. Get the \texttt{out.all} data file from the first of the exercises
 on transition state theory, or run \texttt{mdcode} to generate it
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ ../../ex3/src/mdcode input.cv > log
 \end{lstlisting} Then, use \texttt{dimlandm}ark to extract 500 reference points from
-the dataset:\begin{lstlisting}[language=matlabfloz]
+the dataset:\begin{lstlisting}
 $ awk '{if (NR%10==0) print $0}' out.all | dimlandmark -D 10 -n 500
    -w -unique -mode staged -gamma 0.5 -wgamma 0.5 > lj38.lm
 \end{lstlisting} 
@@ -1146,7 +1148,7 @@ Then, the probability density in the $D$ dimensional space is estimated,
 and it is used to select the $n$ landmark points according to $P\left(X\right)^{\gamma}$.
 You can try to visualize the selected landmarks with \texttt{gnuplot},
 superimposing them to a free-energy surface for $n_{6}$ and $n_{8}$,
-to see how they change when the value of $\gamma$ is modified\begin{lstlisting}[language=matlabfloz]
+to see how they change when the value of $\gamma$ is modified\begin{lstlisting}
 gnuplot> sp 'n6n8.fes' w pm3d, 'lj38.lm' u 3:5:(3) w p
 \end{lstlisting}
 
@@ -1155,7 +1157,7 @@ gnuplot> sp 'n6n8.fes' w pm3d, 'lj38.lm' u 3:5:(3) w p
 Before starting this section you might want to run sketch-map (5.3) and the out-of-sample embedding (5.4) because \texttt{dimproj} utility might need one hour and a half to run.\\
 Sketch-map is based on restricting the similarity matching that underlies
 MDS methods to the range of distances that characterize adjacent meta-stable
-states. Compute the distribution of individual CVs, e.g. by\begin{lstlisting}[language=matlabfloz]
+states. Compute the distribution of individual CVs, e.g. by\begin{lstlisting}
 $ awk '{print $3}' out.all | histogram -xi 0 -xf 25 -n 500 -t 0.1 > n6
 \end{lstlisting}and look at the amplitude of fluctuations around maxima of the histogram
 in each dimension. Note that there are multiple scales in the fluctuations
@@ -1172,7 +1174,7 @@ $10$ units.
 
 You may also want to compute the histogram of $D$-dimensional distances.
 Typically one wants to select a cutoff somewhere before the maximum
-of the distribution, which is dominated by long-range features\begin{lstlisting}[language=matlabfloz]
+of the distribution, which is dominated by long-range features\begin{lstlisting}
 $ awk '{if (NR%10==0) print $0}' out.all > tmp
 $ dimdist -D 10 -P tmp -maxd 20 -nbin 200 -lowmem > lj38.histo
 \end{lstlisting}Sketch map uses a sigmoid function defined as 
@@ -1181,7 +1183,7 @@ s\left(r\right)=1-\left(1+\left(2^{a/b}-1\right)\left(r/\sigma\right){}^{a}\righ
 \]
 You may want to plot it superimposed with the histogram of pairwise
 distances to get a feeling of how different sets of distances are
-transformed by the function:\begin{lstlisting}[language=matlabfloz]
+transformed by the function:\begin{lstlisting}
 gnuplot> f(r,s,a,b)=1-(1.0+(2**(a*1.0/b)-1)*(r/s)**a)**-(b*1.0/a)
 gnuplot> p 'lj38.histo' u 1:($2*10) w l, f(x,5,8,1)
 \end{lstlisting}
@@ -1194,7 +1196,7 @@ starting configuration and an optimizer that can get out of local
 minima to approach a global optimum. Without getting into details,
 you can use a simple script that takes care of the optimization procedure.
 \textbf{Remember} to delete the two-lines header of \texttt{lj38.lm} before
-proceeding.\begin{lstlisting}[language=matlabfloz]
+proceeding.\begin{lstlisting}
 $ sketch-map.sh
 Please enter the dimensionality of input data 10
 Do we have a similarity matrix ? n
@@ -1207,13 +1209,13 @@ Please enter high dimension sigma, a, b [e.g. 6.0 2 6 ] 5 8 1
 Please enter low  dimension sigma, a, b [e.g. 6.0 2 6 ] 5 2 2  
 \end{lstlisting}You can then remove intermediate files and diagnostics, and assemble
 a file with just the low-dimensional coordinates of the landmarks.
-\begin{lstlisting}[language=matlabfloz]
+\begin{lstlisting}
 $ rm log global.* lj38.5_8_1-5_2_2.*[0-9]
 $ awk '!/#/{print $1, $2}' lj38.5_8_1-5_2_2.gmds > lj38.ld
 \end{lstlisting}
 \begin{itemize}
 \item Visualize the projected points, and verify by coloring how the sketch-map
-coordinates separate clearly points with different $n_{k}$s \begin{lstlisting}[language=matlabfloz]
+coordinates separate clearly points with different $n_{k}$s \begin{lstlisting}
 gnuplot> p '< paste lj38.ld lj38.lm' u 1:2:5 w p pt 7 lt pal
 \end{lstlisting}
 \item {[}OPTIONAL{]} Try to run projections with different parameters --
@@ -1227,7 +1229,7 @@ landmark points a corresponding embedding, one can proceed to project
 all the data in the original trajectory. You should use the utility
 \texttt{dimproj} todo so, specifying the high and low-dimensional
 references, the sketch-map parameters and giving in input the full
-trajectory:\begin{lstlisting}[language=matlabfloz]
+trajectory:\begin{lstlisting}
 $ dimproj -D 10 -d 2 -P lj38.lm  -p lj38.ld -w -grid 15,16,151  
    -cgmin 3 -fun-hd 5,8,1 -fun-ld 5,2,2 < out.all > out.proj 2> /dev/null
 \end{lstlisting}Make sure to discard the error log: this is development code and outputs
@@ -1236,7 +1238,7 @@ a lot of junk that you don't need to worry about at this stage.
 \item Compute the free energy from the sketch-map projection. A (long) one-liner
 to do this is as follows
 \end{itemize}
-\begin{lstlisting}[language=matlabfloz][language=matlabfloz]
+\begin{lstlisting}
 $ awk '{print $1, $2}' out.proj | ndhistogram -d 2 -g -xi -15,-15 
    -xf 15,15 -n 150,150 -t 0.2,0.2 -adaptive 0.25 | 
    awk -v kt=0.168 'BEGIN{print "# s1  s2  F(s1,s2)" } 
@@ -1265,14 +1267,14 @@ We can then see how sketch-map coordinates work to describe high-energy
 states and the transition state ensemble between the \emph{fcc }and
 liquid-like states. You can find a file with the configurations saved
 from the exercises in~\ref{sec:2d-committor}, or you can use one
-from your own runs. You should first project the data points \begin{lstlisting}[language=matlabfloz][language=matlabfloz]
+from your own runs. You should first project the data points \begin{lstlisting}
 $ awk '{for (i=3; i<=NF; i++) printf "%s ", $i; print "" }' ts.all |
    dimproj -D 10 -d 2 -w -P lj38.lm -p lj38.ld -grid 15,16,151 
    -cgmin 3 -fun-hd 5,8,1 -fun-ld 5,2,2 > ts.proj 2> /dev/null
 \end{lstlisting}And then do some gnuplot magic to overlay the sketch-map free energy
 and the projection of the transition state data, colored according
 to the committor.
-\begin{lstlisting}[language=matlabfloz][language=matlabfloz]
+\begin{lstlisting}
 gnuplot> set table 'contours.dat';
 gnuplot> set view map; set contour; unset surface;
 gnuplot> set cntrparam levels incremental 0.5,0.1,1.5; 
